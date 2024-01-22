@@ -1,0 +1,39 @@
+{
+    
+    "Stamen Toner": {
+        "url": "https://tiles.stadiamaps.com/tiles/stamen_toner/{z}/{x}/{y}{r}.png?api_key=87e81a5a-4136-409e-92dd-10c6a1a3cb9d",
+        "attr": "&copy; <a href=\"https://www.stadiamaps.com/\" target=\"_blank\">Stadia Maps</a> &copy; <a href=\"https://www.stamen.com/\" target=\"_blank\">Stamen Design</a> &copy; <a href=\"https://openmaptiles.org/\" target=\"_blank\">OpenMapTiles</a> &copy; <a href=\"https://www.openstreetmap.org/about/\" target=\"_blank\">OpenStreetMap contributors</a>"
+    },
+    "Stamen Toner Lite": {
+        "url": "https://tiles.stadiamaps.com/tiles/stamen_toner_lite/{z}/{x}/{y}{r}.png?api_key=87e81a5a-4136-409e-92dd-10c6a1a3cb9d",
+        "attr": "&copy; <a href=\"https://www.stadiamaps.com/\" target=\"_blank\">Stadia Maps</a> &copy; <a href=\"https://www.stamen.com/\" target=\"_blank\">Stamen Design</a> &copy; <a href=\"https://openmaptiles.org/\" target=\"_blank\">OpenMapTiles</a> &copy; <a href=\"https://www.openstreetmap.org/about/\" target=\"_blank\">OpenStreetMap contributors</a>"
+    },
+    "Stamen Terrain": {
+        "url": "https://tiles.stadiamaps.com/tiles/stamen_terrain/{z}/{x}/{y}{r}.jpg?api_key=87e81a5a-4136-409e-92dd-10c6a1a3cb9d",
+        "attr": "&copy; <a href=\"https://www.stadiamaps.com/\" target=\"_blank\">Stadia Maps</a> &copy; <a href=\"https://www.stamen.com/\" target=\"_blank\">Stamen Design</a> &copy; <a href=\"https://openmaptiles.org/\" target=\"_blank\">OpenMapTiles</a> &copy; <a href=\"https://www.openstreetmap.org/about/\" target=\"_blank\">OpenStreetMap contributors</a>"
+    },
+    "Stamen Watercolor": {
+        "url": "https://tiles.stadiamaps.com/tiles/stamen_watercolor/{z}/{x}/{y}.jpg?api_key=87e81a5a-4136-409e-92dd-10c6a1a3cb9d",
+        "attr": "&copy; <a href=\"https://www.stadiamaps.com/\" target=\"_blank\">Stadia Maps</a> &copy; <a href=\"https://www.stamen.com/\" target=\"_blank\">Stamen Design</a> &copy; <a href=\"https://openmaptiles.org/\" target=\"_blank\">OpenMapTiles</a> &copy; <a href=\"https://www.openstreetmap.org/about/\" target=\"_blank\">OpenStreetMap contributors</a>"
+    },
+    "Google Maps": {
+        "url": "https://mt1.google.com/vt/lyrs=m&x={x}&y={y}&z={z}",
+        "attr": "Google"
+    },
+    "Google Satellite": {
+        "url": "https://mt1.google.com/vt/lyrs=s&x={x}&y={y}&z={z}",
+        "attr": "Google"
+    },
+    "Google Satellite Hybrid": {
+        "url": "https://mt1.google.com/vt/lyrs=y&x={x}&y={y}&z={z}",
+        "attr": "Google"
+    },
+    "Esri Satellite": {
+        "url": "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}",
+        "attr": "ESRI"
+    },
+    "Cartodb Positron": {
+        "url": "cartodbpositron",
+        "attr": "Carto"
+    }
+}

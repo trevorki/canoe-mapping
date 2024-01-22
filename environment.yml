@@ -1,0 +1,25 @@
+# conda env create --file environment.yml
+name: 'mapping'
+channels:
+  - conda-forge
+dependencies:
+  - python=3.10  ## specify desired version
+  - pip
+  - pandas
+  - matplotlib
+  - osmnx
+  - numpy
+  - contextily
+  - geopandas
+  - geopy
+  - shapely
+  - pygmt
+
+  ## uncomment for use with Jupyter
+  - ipykernel
+  - nb_conda_kernels
+  - nbformat
+
+  # ## PyPI packages
+  # - pip:
+  #   - 
