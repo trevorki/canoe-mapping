@@ -1,0 +1,25 @@
+{
+    "leisure": [
+      "park",
+      "nature_reserve"
+    ],
+    "tourism": [
+      "camp_site"
+    ],
+    "highway": [
+      "motorway",
+      "trunk",
+      "primary",
+      "secondary",
+      "tertiary",
+      "unclassified",
+      "track",
+      "road",
+      "path",
+      "footway"
+    ],
+    "water": [
+      "lake",
+      "river"
+    ]
+  }
