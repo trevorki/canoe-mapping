@@ -1,12 +1,17 @@
 # canoe-mapping
+
+## Motivation
+
 I could not find any decent maps for a canoe trip of the Nation Lakes in northern BC, so I decided to make my own using OpenStreetMap and the OSMx library.
 
 Here is an example:
-![](maps/Tchentlo-Lake.png)
+!["Sample map"](maps/Tchentlo-Lake.png)
 
-# Setup
+## Setup
+
 1. Create a new virtual environment
-    ```
+
+    ```bash
     conda env create --file environment.yml
     ```
 
@@ -14,9 +19,8 @@ Here is an example:
 
     Save the api key as an environment variable by appending `export STAMEN_API_KEY="<api_key>"` to your `.bashrc` or `.bash_profile` file.
 
-    ``` bash 
+    ``` bash
     code ~/.bashrc
     ```
   
-  # Instructions
-
+## Instructions
