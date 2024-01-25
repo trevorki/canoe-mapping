@@ -113,7 +113,7 @@ def extract_coords(geom) -> list:
     return coords
 
 
-def extract_polygon_coords(polygon) -> list:
+def extract_polygon_coords(geom) -> list:
     """Extracts a list of coordinates ((x,y) tuples) for exterior and interiors of Shapely Polygon
     Args:
         geom: Shapely Polygon object
@@ -121,9 +121,9 @@ def extract_polygon_coords(polygon) -> list:
         list: each item is itself a list of coordinate tuples, eg[[(x1,y1),(x2,y2)...],[(x1,y1),(x2,y2)...], ....]]
     """
     coords = []
-    if polygon.geom_type == 'Polygon':
-        coords.append(polygon.exterior.coords[:])
-        for interior in polygon.interiors:
+    if geom.geom_type == 'Polygon':
+        coords.append(geom.exterior.coords[:])
+        for interior in geom.interiors:
             coords.append(interior.coords[:])
     else:
         raise ValueError('Unhandled geometry type: ' + repr(geom.geom_type))
@@ -148,18 +148,18 @@ def get_style(element: dict, tag_styles: dict, styles: dict) -> dict:
 
 
 def add_legend(ax: matplotlib.axes._axes.Axes, text_size: float, 
-               legend_items: dict, loc: tuple=(0,0)) -> matplotlib.axes._axes.Axes:
+               legend_styles: dict, loc: tuple=(0,0)) -> matplotlib.axes._axes.Axes:
     """Adds legend to map
     Args:
         ax:           axis to draw lengend onto
         text_size:    size of legend text  
-        legend_items: dict with keys=text, values=dict containing matplolib style kwargs for symbol
+        legend_styles: dict with keys=text, values=dict containing matplolib style kwargs for symbol
         loc:          location to place legend in figure corrdinates (0.0-1.0), default=(0,0) (lower left)
     Returns:
         matplotlib.axes._axes.Axes: axis object now with legend
     """
     ax.legend(
-        handles=[Line2D([0], [0], label=l.capitalize().replace("_", " "), **styles[l]) for l in legend_items], 
+        handles=[Line2D([0], [0], label=name.capitalize().replace("_", " "), **style) for name,style in legend_styles.items()], 
         title = " Legend", 
         alignment='left', # position of legend title
         title_fontsize = text_size + 1, # make title a little bigger than text
@@ -172,6 +172,97 @@ def add_legend(ax: matplotlib.axes._axes.Axes, text_size: float,
 
 
 #### Scale bar functions
+# def add_scale_bar(ax: matplotlib.axes._axes.Axes, max_width_pct: float, 
+#                   anchor: tuple, plot_width_km, dx:float, dy:float,
+#                   text_size: float) -> matplotlib.axes._axes.Axes:
+#     """Adds horizontal bar indicating distance scale on map in kilometers
+#     Args:
+#         ax (matplotlib.axes._axes.Axes): ax containing map
+#         max_width_pct (float): the maximum size of scale bar as fraction of map width
+#         anchor (tuple): (x,y) coordinates for lower left corner of scale bar (in data coordinates)
+#         plot_width_km (float): distance represented by map width (in km)
+#         dx (float): width of map in data coordinates
+#         dy (float): height of map in data coordinates
+#         text_size (float): 
+#     Returns:
+#         matplotlib.axes._axes.Axes: ax with scale bar on it
+#     """
+#     # get height and width of bar in data coordinates
+#     scale_dimesion_km = get_scale_dimesion_km(plot_width_km,max_width_pct)
+#     width = scale_dimesion_km / plot_width_km * dx 
+#     height = max(dx,dy)*0.0025 
+#     print(f"scale_dimesion_km={scale_dimesion_km}\nwidth={width}\nheight={height}")
+#     anchor_x, anchor_y = anchor # unpack anchor point into x,y in data
+
+#     # Create a Rectangle patch for scale bar
+#     bar = patches.Rectangle(
+#         xy=anchor, 
+#         width = width, 
+#         height = height, 
+#         linewidth=0.5,
+#         edgecolor='black',
+#         facecolor='lightgrey',
+#         fill=True
+#     )
+#     ax.add_patch(bar)
+    
+#     # Add annotation
+#     ax.annotate(
+#         f"{scale_dimesion_km} km", 
+#         xy=(anchor_x + width/2 , anchor_y), 
+#         xycoords='data', 
+#         size=text_size, 
+#         xytext = (0,-text_size),
+#         textcoords = "offset points",
+#         ha='center',
+#     )
+#     return ax
+def add_scale_bar(ax: matplotlib.axes._axes.Axes, max_width_pct: float, 
+                  anchor: tuple, plot_width_km, dx:float, dy:float,
+                  text_size: float) -> matplotlib.axes._axes.Axes:
+    """Adds horizontal bar indicating distance scale on map in kilometers
+    Args:
+        ax (matplotlib.axes._axes.Axes): ax containing map
+        max_width_pct (float): the maximum size of scale bar as fraction of map width
+        anchor (tuple): (x,y) coordinates for lower left corner of scale bar (in data coordinates)
+        plot_width_km (_type_): distance represented by map width (in km)
+        dx (float): width of map in data coordinates
+        dy (float): height of map in data coordinates
+        text_size (float): 
+    Returns:
+        matplotlib.axes._axes.Axes: ax with scale bar on it
+    """
+    # get height and width of bar in data coordinates
+    scale_dimesion_km = get_scale_dimesion_km(plot_width_km, max_width_pct)
+    width = scale_dimesion_km / plot_width_km * dx 
+    height = max(dx,dy)*0.0025 
+
+    anchor_x, anchor_y = anchor # unpack anchor point into x,y in data
+    
+    # Create a Rectangle patch for scale bar
+    bar = patches.Rectangle(
+        xy=anchor, 
+        width = width, 
+        height = height, 
+        linewidth=0.5,
+        edgecolor='black',
+        facecolor='lightgrey',
+        fill=True
+    )
+    ax.add_patch(bar)
+    
+    # Add annotation
+    ax.annotate(
+        f"{scale_dimesion_km} km", 
+        xy=(anchor_x + width/2 , anchor_y), 
+        xycoords='data', 
+        size=text_size, 
+        xytext = (0,-text_size),
+        textcoords = "offset points",
+        ha='center',
+    )
+    return ax
+
 def get_scale_dimesion_km(plot_width_km: float, max_width_pct: float) -> int:
     """Determines the size (in kilomaters) that scale bar will represent on the map
     Only rounded values starting with 1,2,5 (multiplied by 10**x) allowed
@@ -203,48 +294,3 @@ def get_plot_width_km(west: float,east: float,south: float,north: float) -> floa
     return geopy.distance.geodesic((lat,east), (lat,west)).km
 
 
-def add_scale_bar(ax: matplotlib.axes._axes.Axes, max_width_pct: float, 
-                  anchor: tuple, plot_width_km, dx:float, dy:float,
-                  text_size: float) -> matplotlib.axes._axes.Axes:
-    """Adds horizontal bar indicating distance scale on map in kilometers
-    Args:
-        ax (matplotlib.axes._axes.Axes): ax containing map
-        max_width_pct (float): the maximum size of scale bar as fraction of map width
-        anchor (tuple): (x,y) coordinates for lower left corner of scale bar (in data coordinates)
-        plot_width_km (_type_): distance represented by map width (in km)
-        dx (float): width of map in data coordinates
-        dy (float): height of map in data coordinates
-        text_size (float): 
-    Returns:
-        matplotlib.axes._axes.Axes: ax with scale bar on it
-    """
-    # get height and width of bar in data coordinates
-    scale_dimesion_km = get_scale_dimesion_km(plot_width_km,max_width_pct)
-    width = scale_dimesion_km / plot_width_km * dx 
-    height = max(dx,dy)*0.0025 
-
-    anchor_x, anchor_y = anchor # unpack anchor point into x,y in data
-
-    # Create a Rectangle patch for scale bar
-    bar = patches.Rectangle(
-        xy=anchor, 
-        width = width, 
-        height = height, 
-        linewidth=0.5,
-        edgecolor='black',
-        facecolor='lightgrey',
-        fill=True
-    )
-    ax.add_patch(bar)
-    
-    # Add annotation
-    ax.annotate(
-        f"{scale_dimesion_km} km", 
-        xy=(anchor_x + width/2 , anchor_y), 
-        xycoords='data', 
-        size=text_size, 
-        xytext = (0,-text_size),
-        textcoords = "offset points",
-        ha='center',
-    )
-    return ax
