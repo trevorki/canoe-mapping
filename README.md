@@ -2,7 +2,7 @@
 I could not find any decent maps for a canoe trip of the Nation Lakes in northern BC, so I decided to make my own using OpenStreetMap and the OSMx library.
 
 Here is an example:
-![]()
+![](maps/Tchentlo-Lake.png)
 
 # Setup
 1. Create a new virtual environment
@@ -18,4 +18,5 @@ Here is an example:
     code ~/.bashrc
     ```
   
+  # Instructions
 
