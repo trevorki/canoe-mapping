@@ -17,9 +17,9 @@ from map_utils import *
 
 # Command line argument parser
 parser = argparse.ArgumentParser()  
-parser.add_argument("--dim", help="Maximum dimension of map when printed", type=float, default=10)
+parser.add_argument("--dim", help="Maximum dimension (inches) of map when printed", type=float, default=10)
 parser.add_argument("--places", help="Path to json file containing location info", default="nation_lakes.json")
-parser.add_argument("--background", 
+parser.add_argument("--bg", 
                     help="Name of background tile to use, one of: 'StamenToner', 'StamenTonerLite', 'StamenTerrain', 'StamenWatercolor', 'GoogleMaps', 'GoogleSatellite', 'GoogleSatelliteHybrid', 'EsriSatellite'", 
                     default="StamenTonerLite")
 parser.add_argument("--tags", help="Path to json file containing osm tags to get", default="tags_osm.json")
@@ -41,31 +41,22 @@ if __name__=="__main__":
         tiles = json.load(f)
     
 
-    # Ensure there is Stamen API key or prompt user for non-Stamen tile
-    background = args.background
-    tiles_source = tiles[background]
+    # Load tile URL, checking for Stamen API key if needed
+    background = args.bg
     if "stamen" in background.lower():
         if "STAMEN_API_KEY" in os.environ:
             STAMEN_API_KEY = os.environ["STAMEN_API_KEY"]  
-            print("Stamen API key found in environment variables")
-            tiles_source = tiles_source.replace("API_KEY", STAMEN_API_KEY)
+            tiles_source = tiles[background].replace("API_KEY", STAMEN_API_KEY)
         else:
-            print("No Stamen API key found in environment variables\nChoose from one of the following free tiles")
-            free_tiles = [tile for tile in tiles if "stamen" not in tile.lower()]
-            for i,tile in enumerate(free_tiles):
-                print(f"{i}\t{tile}")
-            usr_input = input("Select a tile by number: ")
-            usr_input = int(usr_input)
-            try:
-                background = free_tiles[usr_input]
-                tiles_source = tiles[background]
-            except:
-                print("Error: Number selected is not available")
-                # return
+            print("Can't use '{background}' tiles, no Stamen API key found in environment variables")
+            print("You can create one at https://stadiamaps.com/stamen/onboarding/create-account")
+            print("Using 'GoogleMaps' tiles instead")
+            background = "GoogleMaps"
+            tiles_source = tiles[background]
     print(f"Selected background: {background}")
 
-    # set general map parmaeters
-    plot_dim = 10
+    # set general map parameters
+    plot_dim = args.dim
     styles = build_style_dict(plot_dim)
     annotation_text_size = plot_dim * 0.5
 
@@ -75,7 +66,7 @@ if __name__=="__main__":
         os.makedirs(map_folder)
 
     for place in places:
-        print(f"\nMaking map for: {place}")
+        print(f"Making map for: {place}")
         # parse location info
         place_name = place["name"] 
         west,east,south,north = place["west"], place["east"], place["south"], place["north"]
@@ -100,7 +91,6 @@ if __name__=="__main__":
         # make fig with backgound tiles
         fig,ax = plt.subplots(1, figsize=figsize, linewidth=1, edgecolor="#04253a")
         ax.set(xlim=(x_min, x_max), ylim=(y_min, y_max))
-        fig.set_dpi(500)
         ax.set_axis_off() # don't display axes with coordinates
         # add background tiles
         zoom_level = cx.tile._calculate_zoom(west,south,east,north) + 1  # get a bit more detail than calculated with +1

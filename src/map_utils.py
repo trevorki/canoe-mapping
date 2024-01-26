@@ -23,20 +23,21 @@ def build_style_dict(plot_dim: float) -> dict:
         dict: matplotlib style kwargs for the types of 
     """
     thick_line_width = plot_dim * 0.1
-    med_line_width = plot_dim * 0.05
+    med_line_width = plot_dim * 0.06
     thin_line_width = plot_dim * 0.025
     node_marker_size = plot_dim * 0.5
     
     styles = {
-        "main_road": {"color":"gray", 
+        "main_road": {"color":"dimgrey", 
                       "linewidth":thick_line_width},
-        "secondary_road": {"color":"gray", 
+        "secondary_road": {"color":"dimgrey", 
                            "linewidth":med_line_width},
-        "tertiary_road": {"color":"gray", 
-                          "linewidth":thin_line_width},
-        "trail":{"color":"gray", 
-                 "linewidth":thin_line_width, 
-                 "linestyle": "--"},
+        "tertiary_road": {"color":"dimgrey", 
+                          "linewidth":med_line_width,
+                          "linestyle": "--"},
+        "trail":{"color":"grey", 
+                 "linewidth":med_line_width, 
+                 "linestyle": ":"},
         "campsite": {"marker": "o",
                      "ms": node_marker_size,
                      "mew":0.5, 
@@ -44,12 +45,12 @@ def build_style_dict(plot_dim: float) -> dict:
                      "mec":"green", 
                      "alpha": 0.9,
                      "linestyle": "",},
-        "lake": {"color":"blue", 
+        "lake": {"color":"mediumblue", 
                  "linewidth":thin_line_width, 
                  "alpha": 0.8},
-        "river": {"color":"blue",
+        "river": {"color":"mediumblue",
                   "linewidth":thin_line_width, 
-                  "alpha": 0.5},
+                  "alpha": 0.8},
         "mountain": {"marker": "+", 
                      "ms": node_marker_size*0.75,
                      "color":"black", 
@@ -65,7 +66,7 @@ def build_style_dict(plot_dim: float) -> dict:
         "barrier": {"marker": "x", 
                        "ms": node_marker_size*0.75, 
                        "mfc":"none", 
-                       "mec":"red",
+                       "mec":"firebrick",
                        "mew":0.75,  
                        "alpha": 0.75, 
                        "linestyle": ""},

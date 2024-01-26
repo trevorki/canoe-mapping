@@ -1,5 +1,6 @@
 cache/
 maps/
+*.ipynb
 *.ipynb_checkpoints*
 *DS_Store*
 *.tif

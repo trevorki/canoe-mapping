@@ -23,6 +23,6 @@
       "river"
     ],
     "barrier": ["yes"],
-    "natural": ["spring"],
+    "natural": ["spring", "mountain", "peak"],
     "waterway": ["waterfall", "weir", "dam"]
   }
