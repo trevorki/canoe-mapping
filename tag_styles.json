@@ -1,0 +1,38 @@
+{
+  "tourism": {
+    "camp_site": "campsite"
+  },
+  "natural": {
+    "peak": "mountain",
+    "mountain_range": "mountain",
+    "spring": "point_of_interest"
+  },
+  "barrier": {
+    "yes": "barrier"
+  },
+  "water": {
+    "lake": "lake",
+    "river": "river"
+  },
+  "highway": {
+    "motorway": "secondary_road",
+    "trunk": "secondary_road",
+    "primary": "secondary_road",
+    "secondary": "tertiary_road",
+    "tertiary": "tertiary_road",
+    "unclassified": "tertiary_road",
+    "track": "tertiary_road",
+    "road": "tertiary_road",
+    "path": "trail",
+    "footway": "trail"
+  },
+  "leisure": {
+    "nature_reserve": "park_boundary",
+    "park": "park_boundary"
+  },
+  "waterway": {
+    "waterfall": "point_of_interest",
+    "weir": "barrier",
+    "dam": "barrier"
+  }
+}

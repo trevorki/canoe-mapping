@@ -1,4 +1,6 @@
+cache/
+maps/
 *.ipynb_checkpoints*
 *DS_Store*
-cache/
 *.tif
+*__pycache__

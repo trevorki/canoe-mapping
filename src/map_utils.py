@@ -13,6 +13,71 @@ import matplotlib.pyplot as plt
 from matplotlib.lines import Line2D
 from matplotlib import patches
 
+##### Style elements for plot
+def build_style_dict(plot_dim: float) -> dict:
+    """constructs a dictionary containing matplotlib styling keywords 
+    that can be used with ax.plot. Dimensions of lines scale with the size of the map
+    Args:
+        plot_dim (float): maximum dimension of map in inches
+    Returns:
+        dict: matplotlib style kwargs for the types of 
+    """
+    thick_line_width = plot_dim * 0.1
+    med_line_width = plot_dim * 0.05
+    thin_line_width = plot_dim * 0.025
+    node_marker_size = plot_dim * 0.5
+    
+    styles = {
+        "main_road": {"color":"gray", 
+                      "linewidth":thick_line_width},
+        "secondary_road": {"color":"gray", 
+                           "linewidth":med_line_width},
+        "tertiary_road": {"color":"gray", 
+                          "linewidth":thin_line_width},
+        "trail":{"color":"gray", 
+                 "linewidth":thin_line_width, 
+                 "linestyle": "--"},
+        "campsite": {"marker": "o",
+                     "ms": node_marker_size,
+                     "mew":0.5, 
+                     "mfc":"none", 
+                     "mec":"green", 
+                     "alpha": 0.9,
+                     "linestyle": "",},
+        "lake": {"color":"blue", 
+                 "linewidth":thin_line_width, 
+                 "alpha": 0.8},
+        "river": {"color":"blue",
+                  "linewidth":thin_line_width, 
+                  "alpha": 0.5},
+        "mountain": {"marker": "+", 
+                     "ms": node_marker_size*0.75,
+                     "color":"black", 
+                     "mew":0.5, 
+                     "mfc":"none","linestyle": ""},
+        "point_of_interest": {"marker": "*", 
+                       "ms": node_marker_size, 
+                       "mfc":"none", 
+                       "mec":"purple",
+                       "mew":0.5,  
+                       "alpha": 0.75, 
+                       "linestyle": ""},
+        "barrier": {"marker": "x", 
+                       "ms": node_marker_size*0.75, 
+                       "mfc":"none", 
+                       "mec":"red",
+                       "mew":0.75,  
+                       "alpha": 0.75, 
+                       "linestyle": ""},
+        "park_boundary": {"color":"green", 
+                 "linewidth":thick_line_width, 
+                 "linestyle": "--", 
+                 "alpha":0.5},
+    }
+    
+    return styles
+
+
 ###### Coordinate transformations
 def lonlat_to_xy(lon: float, lat: float) -> tuple:
     """Converts coordinates from EPSG4326 (lon,lat) to EPSG3857(x,y)

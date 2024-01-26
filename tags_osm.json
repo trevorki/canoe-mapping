@@ -21,5 +21,8 @@
     "water": [
       "lake",
       "river"
-    ]
+    ],
+    "barrier": ["yes"],
+    "natural": ["spring"],
+    "waterway": ["waterfall", "weir", "dam"]
   }

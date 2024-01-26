@@ -2,10 +2,14 @@
 
 ## Motivation
 
-I could not find any decent maps for a canoe trip of the Nation Lakes in northern BC, so I decided to make my own using OpenStreetMap and the OSMx library.
+I could not find any decent maps for a canoe trip of the Nation Lakes in northern BC, so I decided to make my own using OpenStreetMap and the OSMx library. By including tags relevant for canoe trips, these maps have are accurate enough for navigation and include the location of campsites (both official and unofficial) and other important features.
+
+Planned upgrades include 
+- adding lat/lon gridlines
+- whitewater tags for rapids, grades, etc
 
 Here is an example:
-!["Sample map"](maps/Tchentlo-Lake.png)
+!["Sample map"](img/TchentloLake_StamenTonerLite.png)
 
 ## Setup
 
@@ -24,3 +28,16 @@ Here is an example:
     ```
   
 ## Instructions
+
+1. Create a json file with the name and latitude (north, south) and longitude (east, west) of the location(s) you want mapped. This can be found easily using google maps by clicking to drop a pin, then right-click to copy lat/lon. For example, for the 4 lakes of the Nation Lakes chain it would look like this:
+
+```json
+[
+  {"name": "Tsayta Lake", "north": 55.48292, "west": -125.650, "south": 55.41749450097668, "east": -125.31534497067527}, 
+  {"name": "Indata Lake", "north": 55.3925, "west": -125.33, "south": 55.292, "east": -125.2175}, 
+  {"name": "Tchentlo Lake", "north": 55.27724688304605, "west": -125.2879216313345, "south": 55.164542941519294, "east": -124.75996931606227}, 
+  {"name": "Chuchi Lake", "north": 55.22210608559387, "west": -124.76407610865795, "south": 55.12837905899054, "east": -124.31095886659628}
+]
+```
+
+
